@@ -12,6 +12,11 @@
 		7E6F0CA82314F5A700D81340 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E6F0CA62314F5A700D81340 /* Main.storyboard */; };
 		7E6F0CAA2314F5A800D81340 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E6F0CA92314F5A800D81340 /* Assets.xcassets */; };
 		7E6F0CAD2314F5A800D81340 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E6F0CAB2314F5A800D81340 /* LaunchScreen.storyboard */; };
+		7E6F0CB82314F89800D81340 /* CCPDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F0CB72314F89800D81340 /* CCPDate.swift */; };
+		7E6F0CBC2314FA2A00D81340 /* CCPDateCompare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F0CBB2314FA2A00D81340 /* CCPDateCompare.swift */; };
+		7E6F0CBE2314FA3300D81340 /* CCPDateShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F0CBD2314FA3300D81340 /* CCPDateShow.swift */; };
+		7E6F0CC02314FD0500D81340 /* CCPDateComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F0CBF2314FD0500D81340 /* CCPDateComponents.swift */; };
+		7E6F0CD1231533DA00D81340 /* DateComponentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F0CD0231533DA00D81340 /* DateComponentsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		7E6F0CA92314F5A800D81340 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E6F0CAC2314F5A800D81340 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E6F0CAE2314F5A800D81340 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E6F0CB72314F89800D81340 /* CCPDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCPDate.swift; sourceTree = "<group>"; };
+		7E6F0CBB2314FA2A00D81340 /* CCPDateCompare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCPDateCompare.swift; sourceTree = "<group>"; };
+		7E6F0CBD2314FA3300D81340 /* CCPDateShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCPDateShow.swift; sourceTree = "<group>"; };
+		7E6F0CBF2314FD0500D81340 /* CCPDateComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCPDateComponents.swift; sourceTree = "<group>"; };
+		7E6F0CD0231533DA00D81340 /* DateComponentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponentsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,7 @@
 				7E6F0CB42314F5E900D81340 /* CCPDateExtensions */,
 				7E6F0CA22314F5A700D81340 /* AppDelegate.swift */,
 				7E6F0CA42314F5A700D81340 /* ViewController.swift */,
+				7E6F0CD0231533DA00D81340 /* DateComponentsVC.swift */,
 				7E6F0CA62314F5A700D81340 /* Main.storyboard */,
 				7E6F0CA92314F5A800D81340 /* Assets.xcassets */,
 				7E6F0CAB2314F5A800D81340 /* LaunchScreen.storyboard */,
@@ -68,6 +79,10 @@
 		7E6F0CB42314F5E900D81340 /* CCPDateExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				7E6F0CB72314F89800D81340 /* CCPDate.swift */,
+				7E6F0CBB2314FA2A00D81340 /* CCPDateCompare.swift */,
+				7E6F0CBD2314FA3300D81340 /* CCPDateShow.swift */,
+				7E6F0CBF2314FD0500D81340 /* CCPDateComponents.swift */,
 			);
 			path = CCPDateExtensions;
 			sourceTree = "<group>";
@@ -143,8 +158,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E6F0CBC2314FA2A00D81340 /* CCPDateCompare.swift in Sources */,
+				7E6F0CB82314F89800D81340 /* CCPDate.swift in Sources */,
 				7E6F0CA52314F5A700D81340 /* ViewController.swift in Sources */,
+				7E6F0CC02314FD0500D81340 /* CCPDateComponents.swift in Sources */,
+				7E6F0CD1231533DA00D81340 /* DateComponentsVC.swift in Sources */,
 				7E6F0CA32314F5A700D81340 /* AppDelegate.swift in Sources */,
+				7E6F0CBE2314FA3300D81340 /* CCPDateShow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,13 +311,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ND2NE475A9;
+				DEVELOPMENT_TEAM = 46YMQCHAFY;
 				INFOPLIST_FILE = CCPDate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "cool-ccp.CCPDate";
+				PRODUCT_BUNDLE_IDENTIFIER = "cool-ccp.CCPDate.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -309,13 +330,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ND2NE475A9;
+				DEVELOPMENT_TEAM = 46YMQCHAFY;
 				INFOPLIST_FILE = CCPDate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "cool-ccp.CCPDate";
+				PRODUCT_BUNDLE_IDENTIFIER = "cool-ccp.CCPDate.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
