@@ -11,10 +11,10 @@ import UIKit
 
 
 extension Date {
-    func compare(_ date: Date) -> CompareResult {
-        
-        return .today
-    }
+//    func compare(_ date: Date) -> SubResult {
+//        
+//        return .today
+//    }
     
 //    func components() {
 //        let com

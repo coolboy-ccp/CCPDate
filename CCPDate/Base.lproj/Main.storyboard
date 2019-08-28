@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--DateShow-China-->
+        <!--DateDescription-China-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CCPDate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="DateDescriptionVC" customModule="CCPDate" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="cgX-z0-ytg"/>
                                 </connections>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2TI-Da-9Lk">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2TI-Da-9Lk">
                                 <rect key="frame" x="0.0" y="88" width="414" height="29"/>
                                 <segments>
                                     <segment title="china"/>
@@ -34,7 +34,7 @@
                                     <segment title="en"/>
                                 </segments>
                                 <connections>
-                                    <action selector="areaType:" destination="BYZ-38-t0r" eventType="valueChanged" id="wY4-GD-vhz"/>
+                                    <action selector="areaType:" destination="BYZ-38-t0r" eventType="valueChanged" id="gWC-95-VUH"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
@@ -50,16 +50,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="DateShow-China" id="0NE-v2-OE7">
+                    <navigationItem key="navigationItem" title="DateDescription-China" id="0NE-v2-OE7">
                         <barButtonItem key="rightBarButtonItem" title="components" style="plain" id="gBf-LS-G6p">
                             <color key="tintColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="K6i-5o-NvV" kind="show" id="NFR-Am-GdM"/>
+                                <segue destination="K6i-5o-NvV" kind="push" id="E1U-k0-ksQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableview" destination="Ftd-D8-n86" id="eRn-jX-xl0"/>
+                        <outlet property="tableview" destination="Ftd-D8-n86" id="UeG-Sl-SdK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -92,13 +92,70 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6uV-nu-Cqp"/>
                     </view>
+                    <navigationItem key="navigationItem" title="DateComponents" id="XKR-iv-uUw">
+                        <barButtonItem key="leftBarButtonItem" title="back" style="plain" id="Fjv-xk-Ook">
+                            <color key="tintColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="back:" destination="K6i-5o-NvV" id="yVy-My-M9q"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="compare" style="plain" id="yRa-ev-XgW">
+                            <color key="tintColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="1x6-0e-zBo" kind="push" id="Yov-wK-Yv0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableview" destination="Iqh-lJ-62i" id="vwl-oA-TcP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i1J-9I-KpK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1949" y="49"/>
+            <point key="canvasLocation" x="2257" y="102"/>
+        </scene>
+        <!--DateCompare-->
+        <scene sceneID="WmM-xw-A7a">
+            <objects>
+                <viewController id="1x6-0e-zBo" customClass="DateCompareVC" customModule="CCPDate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MpQ-Ff-9id">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r5I-DJ-zBO">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="1x6-0e-zBo" id="Boq-S8-GnG"/>
+                                    <outlet property="delegate" destination="1x6-0e-zBo" id="TH2-B6-o80"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="P7d-3i-eVw" firstAttribute="bottom" secondItem="r5I-DJ-zBO" secondAttribute="bottom" id="BNk-N6-J68"/>
+                            <constraint firstItem="r5I-DJ-zBO" firstAttribute="top" secondItem="P7d-3i-eVw" secondAttribute="top" id="bZG-zk-714"/>
+                            <constraint firstItem="r5I-DJ-zBO" firstAttribute="leading" secondItem="P7d-3i-eVw" secondAttribute="leading" id="l3x-UN-UT0"/>
+                            <constraint firstItem="P7d-3i-eVw" firstAttribute="trailing" secondItem="r5I-DJ-zBO" secondAttribute="trailing" id="nM2-G7-pam"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="P7d-3i-eVw"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="DateCompare" id="izR-lJ-ruS">
+                        <barButtonItem key="leftBarButtonItem" title="back" style="plain" id="Sc4-vc-qzM">
+                            <color key="tintColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="back:" destination="1x6-0e-zBo" id="9HG-t8-xjH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableview" destination="r5I-DJ-zBO" id="zbj-Gj-NNz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z20-n7-Ovu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Item" id="EsX-GN-DNG"/>
+            </objects>
+            <point key="canvasLocation" x="3469.5652173913045" y="101.78571428571428"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MX6-mb-H8b">

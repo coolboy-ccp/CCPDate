@@ -21,6 +21,10 @@ class DateComponentsVC: UIViewController {
         })
     }()
     
+    @IBAction func back(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

@@ -8,108 +8,58 @@
 
 import Foundation
 
-public enum DescType {
-    case china
-    case en
-    case enFull
-}
 
-extension DescType {
-    var month: [String] {
-        switch self {
-        case .china:
-            return ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
-        case .en:
-            return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
-        case .enFull:
-            return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-            
-        }
-    }
-    
-    var week: [String] {
-        switch self {
-        case .china:
-            return ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
-        case .en:
-            return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        case .enFull:
-            return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-        }
-    }
-    
-    static var allKeys: [DescType] {
-        return [china, en, enFull]
-    }
-    
+extension Set where Element == Calendar.Component {
+    static let ccpComponents: Set = [.year, .month, .month, .day, .hour, .minute, .second, .timeZone, .weekday, .weekOfYear, .weekOfMonth]
 }
 
 
 extension Date {
     var cpts: DateComponents {
-        let componentsSet: Set<Calendar.Component> = [.year, .month, .month, .day, .hour, .minute, .second, .timeZone, .weekday, .weekOfYear, .weekdayOrdinal, .weekOfMonth]
-        return Calendar.current.dateComponents(componentsSet, from: self)
+        return Calendar.current.dateComponents(.ccpComponents, from: self)
     }
     
     var year: Int {
-        return cpts.year ?? -1
+        return cpts.year ?? Int.min
     }
     
     var month: Int {
-        return cpts.month ?? -1
+        return cpts.month ?? Int.min
     }
     
     var day: Int {
-        return cpts.day ?? -1
+        return cpts.day ?? Int.min
     }
     
     var hour: Int {
-        return cpts.hour ?? -1
+        return cpts.hour ?? Int.min
     }
     
     var minute: Int {
-        return cpts.minute ?? -1
+        return cpts.minute ?? Int.min
     }
     
     var second: Int {
-        return cpts.second ?? -1
+        return cpts.second ?? Int.min
     }
     
     var timeZone: TimeZone? {
         return cpts.timeZone
     }
     
+    /*
+     * 0 -> 6，周日 -> 周六
+     */
     var weekDay: Int {
-        return cpts.weekday ?? -1
-    }
-    
-    var weekdayOrdinal: Int {
-        return cpts.weekdayOrdinal ?? -1
+        return cpts.weekday ?? Int.min
     }
     
     var weekOfMonth: Int {
-        return cpts.weekOfMonth ?? -1
+        return cpts.weekOfMonth ?? Int.min
     }
     
     var weekOfYear: Int {
-        return cpts.weekOfYear ?? -1
-    }
-    
-    func monthDesc(_ type: DescType = .china) -> String {
-        assert(month > 0, "无效的月份")
-        return type.month[month - 1]
-    }
-    
-    func weekDesc(_ type: DescType = .china) -> String {
-        assert(weekDay > 0, "无效的星期")
-        var week = 0
-        if weekDay == 0 {
-            week = 6
-        }
-        else {
-            week = weekDay - 2
-        }
-        return type.week[week]
+        return cpts.weekOfYear ?? Int.min
     }
     
 }
