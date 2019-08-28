@@ -160,7 +160,7 @@ public func -(left: Date, right: Date) -> [SubResult] {
 /// - ago: 被减日期在减日期之前
 /// - future: 被减日期在减日期之后
 /// - same: 相等
-/// --same可通过设置精度改变计算步骤
+/// -- same可通过设置精度改变计算步骤
 public enum SubResult {
     case ago(SubPeriod)
     case future(SubPeriod)
@@ -226,6 +226,7 @@ extension SubPeriod: CustomStringConvertible {
     }
 }
 
+//同时增加多个属性
 public struct AddUnits {
     var units = [AddUnit]()
     init(year: Int = 0, month: Int = 0, day: Int = 0, hour: Int = 0, minute: Int = 0, second: Int = 0) {
