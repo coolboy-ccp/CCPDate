@@ -8,8 +8,9 @@
 
 import Foundation
 
+
 extension Set where Element == Calendar.Component {
-    static let ccpComponents: Set = [.year, .month, .month, .day, .hour, .minute, .second, .timeZone, .weekday, .weekOfYear, .weekOfMonth]
+    static let ccpComponents: Set = [.year, .month, .day, .hour, .minute, .second, .nanosecond, .timeZone, .weekday, .weekdayOrdinal, .weekOfMonth, .weekOfYear]
 }
 
 
@@ -47,16 +48,32 @@ extension Date {
     }
     
     /*
-     * 0 -> 6，周日 -> 周六
+     * 1 -> 7，周日 -> 周六
      */
     var weekDay: Int {
         return cpts.weekday ?? Int.min
     }
     
+    /*
+     * 表示一个月的第几周，以7天为单位
+     */
+    var weekDayOridinal: Int {
+        return cpts.weekdayOrdinal ?? Int.min
+    }
+    
+    /*
+     * 表示一个月的第几周
+     * 会受到这个(minimumDaysInFirstWeek)参数的影响
+     * 当前月份的1号为周三，如果 minimumDaysInFirstWeek < 4, 当月5号的weekOfMonth为2，反之，为1
+     */
     var weekOfMonth: Int {
         return cpts.weekOfMonth ?? Int.min
     }
     
+    /*
+     * 表示一年的第几周
+     *
+     */
     var weekOfYear: Int {
         return cpts.weekOfYear ?? Int.min
     }

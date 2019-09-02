@@ -10,15 +10,20 @@ import UIKit
 
 class DateComponentsVC: UIViewController {
     
-    typealias DataSource = (type: String, desc: String)
+    typealias DataSource = (title: String, desc: String)
 
     @IBOutlet weak var tableview: UITableView!
     
+    private let titles = ["year", "month", "day", "hour", "minute", "second", "weekday", "weekDayOridinal", "weekOfMonth", "weekOfYear"]
+    private let now = Date() + .month(1) + .day(6)
+    private lazy var cpts: [Int] = {
+        return [now.year, now.month, now.day, now.hour, now.minute, now.second, now.weekDay, now.weekDayOridinal, now.weekOfMonth, now.weekOfYear]
+    }()
+    
     private lazy var datasuorce: [DataSource] = {
-        let now = Date()
-        return DescType.allKeys.map({ (type) -> DataSource in
-            return ("\(type) \(now.string(formatter: .YMD))", now.weekDesc(type) + " " + now.monthDesc(type))
-        })
+        return titles.enumerated().map { (idx, title) in
+            return (title, "\(cpts[idx])")
+        }
     }()
     
     @IBAction func back(_ sender: Any) {
@@ -27,8 +32,17 @@ class DateComponentsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupHeader()
     }
 
+    
+    private func setupHeader() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
+        label.text = "now: " + now.string()
+        label.textAlignment = .center
+        label.textColor = .black
+        tableview.tableHeaderView = label
+    }
 }
 
 extension DateComponentsVC: UITableViewDataSource {
@@ -42,7 +56,7 @@ extension DateComponentsVC: UITableViewDataSource {
             cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "DateComponentsDemoCell")
         }
         let data = datasuorce[indexPath.row]
-        cell?.textLabel?.text = data.type
+        cell?.textLabel?.text = data.title
         cell?.detailTextLabel?.text = data.desc
         return cell!
     }

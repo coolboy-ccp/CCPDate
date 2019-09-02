@@ -48,20 +48,17 @@ class DateDescriptionVC: UIViewController {
         }
     }
     
-    private func updateIfNeed() {
-        
+    private func setupHeader() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
+        label.text = "now: " + now.string()
+        label.textAlignment = .center
+        label.textColor = .black
+        tableview.tableHeaderView = label
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let date1 = Date()
-//        let date2 = Date(timeIntervalSince1970: date1.timeIntervalSince1970 - 3600)
-//        let date3 = Date(timeIntervalSince1970: date1.timeIntervalSince1970 + 3)
-//        let date4 = Date(timeIntervalSince1970: date1.timeIntervalSince1970 + 60)
-//        let date5 = Date(timeIntervalSince1970: date1.timeIntervalSince1970 + 3600)
-//        let date6 = Date(timeIntervalSince1970: date1.timeIntervalSince1970 + 3600 * 24)
-//        print(date2 - date1, date3 - date1, date4 - date1, date5 - date1, date6 - date1)
-        print(date1,date1 + AddUnit.day(1))
+        setupHeader()
     }
 }
 

@@ -8,50 +8,39 @@
 
 import Foundation
 
-infix operator -
+infix operator ~-
 infix operator +
+infix operator -
+
 
 //获得新增后的日期, 单个选项
 public func +(left: Date, right: AddUnit) -> Date {
-    var cpts = Calendar.current.dateComponents(.ccpComponents, from: left)
+    var cpts = Calendar.current.dateComponents(.calculationComponents, from: left)
     add(&cpts, right)
     return Calendar.current.date(from: cpts) ?? left
 }
 
 //获得新增后的日期, 多个选项
 public func +(left: Date, right: AddUnits) -> Date {
-    var cpts = Calendar.current.dateComponents(.ccpComponents, from: left)
+    var cpts = Calendar.current.dateComponents(.calculationComponents, from: left)
     for unit in right.units {
         add(&cpts, unit)
     }
     return Calendar.current.date(from: cpts) ?? left
 }
 
-//不使用CustomStringConvertible的原因是因为swift库中已经定义了Array的CustomStringConvertible,再次定义会被忽略
-extension Array where Element == SubResult {
-    var rltDesc: String {
-        var str = ""
-        for rlt in self {
-            if rlt == .same {
-                return "\(rlt)"
-            }
-            str += "\(rlt)"
-        }
-        return str
-    }
-}
 
-//默认精度为纳秒级
-fileprivate var subAccuracy: SubAccuracy = .nanosecond
+//默认精度为秒
+fileprivate var subAccuracy: SubAccuracy = .second
 
 /*
- * 调用此方法可改变计算精度, 计算结束后，精度会被重置为纳秒级
+ * 调用此方法可改变计算精度, 计算结束后，精度会被重置为秒
  * 如果多次计算都需要用此精度，建议将其封装成一个方法后，统一扔给handler；不建议多次调用此方法
  */
 public func dateCalculate(accuracy: SubAccuracy, handler: @autoclosure () -> ()) {
     subAccuracy = accuracy
     handler()
-    subAccuracy = .nanosecond
+    subAccuracy = .second
 }
 
 /*
@@ -65,11 +54,12 @@ public func setGlobalAccuracy(accuracy: SubAccuracy) {
 }
 
 /*
- * 计算两个date相差多少
- * year -> nanosecond进行计算, 遇到差值不等于0时，返回当前级数和级数数值
+ * 计算两个date相差多少, 这个方法主要用于显示一个大致的时间差，比如: "三天前",  "三天后"
+ * year -> second进行计算, 遇到差值不等于0时，返回当前级数和级数数值
  */
-public func -(left: Date, right: Date) -> SubResult {
-    let components = Calendar.current.dateComponents(.ccpComponents, from: right, to: left)
+public func ~-(left: Date, right: Date) -> SubResult {
+    let components = Calendar.current.dateComponents(.calculationComponents, from: right, to: left)
+    print(left, right, components)
     if let year = components.year, year != 0 {
         return year > 0 ? .future(SubPeriod.year(year)) : .ago(SubPeriod.year(abs(year)))
     }
@@ -78,11 +68,12 @@ public func -(left: Date, right: Date) -> SubResult {
         return month > 0 ? .future(SubPeriod.month(month)) : .ago(SubPeriod.month(abs(month)))
     }
     if subAccuracy == .month { return .same }
-    if let week = components.weekday, week != 0 {
-        return week > 0 ? .future(SubPeriod.week(week)) : .ago(SubPeriod.week(abs(week)))
-    }
-    if subAccuracy == .week { return .same }
     if let day = components.day, day != 0 {
+        let week = day / 7
+        if abs(week) > 0 {
+            return week > 0 ? .future(SubPeriod.week(week)) : .ago(SubPeriod.week(abs(week)))
+        }
+        if subAccuracy == .week { return .same }
         return day > 0 ? .future(SubPeriod.day(day)) : .ago(SubPeriod.day(abs(day)))
     }
     if subAccuracy == .day { return .same }
@@ -97,61 +88,19 @@ public func -(left: Date, right: Date) -> SubResult {
     if let second = components.second, second != 0 {
         return second > 0 ? .future(SubPeriod.second(second)) : .ago(SubPeriod.second(abs(second)))
     }
-    if subAccuracy == .second { return .same }
-    if let nanosecond = components.nanosecond, nanosecond != 0 {
-        return nanosecond > 0 ? .future(SubPeriod.nanosecond(nanosecond)) : .ago(SubPeriod.nanosecond(abs(nanosecond)))
-    }
     return .same
+}
+
+extension Set where Element == Calendar.Component {
+    static let calculationComponents: Set = [.year, .month, .day, .hour, .minute, .second, .nanosecond]
 }
 
 
 /*
- * 计算两个date相差多少
- * year -> nanosecond进行计算
+ * 计算两个date相差多少, 获取准确的时间差, 通过component的属性可以组装时间差表达
  */
-public func -(left: Date, right: Date) -> [SubResult] {
-    let components = Calendar.current.dateComponents(.ccpComponents, from: right, to: left)
-    var resluts = [SubResult]()
-    if let year = components.year, year != 0 {
-        let result: SubResult = year > 0 ? .future(SubPeriod.year(year)) : .ago(SubPeriod.year(abs(year)))
-        resluts.append(result)
-    }
-    if subAccuracy == .year { resluts.append(.same) }
-    if let month = components.month, month != 0 {
-        let result: SubResult = month > 0 ? .future(SubPeriod.month(month)) : .ago(SubPeriod.month(abs(month)))
-        resluts.append(result)
-    }
-    if subAccuracy == .month { resluts.append(.same) }
-    if let week = components.weekday, week != 0 {
-        let result: SubResult = week > 0 ? .future(SubPeriod.week(week)) : .ago(SubPeriod.week(abs(week)))
-        resluts.append(result)
-    }
-    if subAccuracy == .week { resluts.append(.same) }
-    if let day = components.day, day != 0 {
-        let result: SubResult = day > 0 ? .future(SubPeriod.day(day)) : .ago(SubPeriod.day(abs(day)))
-        resluts.append(result)
-    }
-    if subAccuracy == .day { resluts.append(.same) }
-    if let hour = components.hour, hour != 0 {
-        let result: SubResult = hour > 0 ? .future(SubPeriod.hour(hour)) : .ago(SubPeriod.hour(abs(hour)))
-        resluts.append(result)
-    }
-    if subAccuracy == .hour { resluts.append(.same) }
-    if let minute = components.minute, minute != 0 {
-        let result: SubResult = minute > 0 ? .future(SubPeriod.minute(minute)) : .ago(SubPeriod.minute(abs(minute)))
-        resluts.append(result)
-    }
-    if subAccuracy == .minute { resluts.append(.same) }
-    if let second = components.second, second != 0 {
-        let result: SubResult = second > 0 ? .future(SubPeriod.second(second)) : .ago(SubPeriod.second(abs(second)))
-        resluts.append(result)
-    }
-    if subAccuracy == .second { resluts.append(.same) }
-    if let nanosecond = components.nanosecond, nanosecond != 0 {
-        let result : SubResult = nanosecond > 0 ? .future(SubPeriod.nanosecond(nanosecond)) : .ago(SubPeriod.nanosecond(abs(nanosecond)))
-        resluts.append(result)
-    }
-    return resluts
+public func -(left: Date, right: Date) -> DateComponents {
+    return Calendar.current.dateComponents(.calculationComponents, from: right, to: left)
 }
 
 
@@ -199,7 +148,6 @@ public enum SubPeriod {
     case hour(_ value: Int)
     case minute(_ value: Int)
     case second(_ value: Int)
-    case nanosecond(_ value: Int)
 }
 
 //TODO 国际化
@@ -220,8 +168,6 @@ extension SubPeriod: CustomStringConvertible {
             return "\(v)分钟"
         case .second(let v):
             return "\(v)秒"
-        case .nanosecond(let v):
-            return "\(v)纳秒"
         }
     }
 }
@@ -229,16 +175,19 @@ extension SubPeriod: CustomStringConvertible {
 //同时增加多个属性
 public struct AddUnits {
     var units = [AddUnit]()
-    init(year: Int = 0, month: Int = 0, day: Int = 0, hour: Int = 0, minute: Int = 0, second: Int = 0) {
+    init(year: Int = 0, month: Int = 0, week: Int = 0, day: Int = 0, hour: Int = 0, minute: Int = 0, second: Int = 0) {
         if year != 0 { self.units.append(.year(year)) }
         if month != 0 { self.units.append(.month(month)) }
+        if week != 0 { self.units.append(.week(week)) }
         if day != 0 { self.units.append(.day(day)) }
         if hour != 0 { self.units.append(.hour(hour)) }
         if minute != 0 { self.units.append(.minute(minute)) }
         if second != 0 { self.units.append(.second(second)) }
     }
     
-
+    init(units: [AddUnit]) {
+        self.units = units
+    }
 }
 
 /*
@@ -250,6 +199,7 @@ public enum AddUnit {
     case month(_ value: Int)
     case day(_ value: Int)
     case hour(_ value: Int)
+    case week(_ value: Int)
     case minute(_ value: Int)
     case second(_ value: Int)
 }
@@ -263,7 +213,6 @@ public enum SubAccuracy {
     case hour
     case minute
     case second
-    case nanosecond
 }
 
 fileprivate func add(_ cpts: inout DateComponents, _ unit: AddUnit) {
@@ -272,6 +221,8 @@ fileprivate func add(_ cpts: inout DateComponents, _ unit: AddUnit) {
         cpts.year = (cpts.year ?? 0) + v
     case .month(let v):
         cpts.month = (cpts.month ?? 0) + v
+    case .week(let v):
+        cpts.day = (cpts.day ?? 0)  + (v * 7)
     case .day(let v):
         cpts.day = (cpts.day ?? 0) + v
     case .hour(let v):

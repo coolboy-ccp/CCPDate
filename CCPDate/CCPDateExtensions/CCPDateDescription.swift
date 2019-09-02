@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 public enum DescType {
     case china
     case en
@@ -54,12 +53,17 @@ public enum Interval: String {
     case slash = "/"
 }
 
+
+/// 不同地区，显示的样式不一样
+///
+/// - china: yyyyMMdd
+/// - usa: MMddyyyy
+/// - en: ddMMyyyy
 public enum Area {
     case china
     case usa
     case en
 }
-
 
 public enum CCPDateFormatter: String {
     case YM = "yyyy-MM"

@@ -66,15 +66,8 @@
 		7E6F0CA12314F5A700D81340 /* CCPDate */ = {
 			isa = PBXGroup;
 			children = (
+				7EA70632231CFE8B007BD463 /* demo */,
 				7E6F0CB42314F5E900D81340 /* CCPDateExtensions */,
-				7E6F0CA22314F5A700D81340 /* AppDelegate.swift */,
-				7E6F0CA42314F5A700D81340 /* DateDescriptionVC.swift */,
-				7E6F0CD0231533DA00D81340 /* DateComponentsVC.swift */,
-				7E6F0CD2231657C900D81340 /* DateCompareVC.swift */,
-				7E6F0CA62314F5A700D81340 /* Main.storyboard */,
-				7E6F0CA92314F5A800D81340 /* Assets.xcassets */,
-				7E6F0CAB2314F5A800D81340 /* LaunchScreen.storyboard */,
-				7E6F0CAE2314F5A800D81340 /* Info.plist */,
 			);
 			path = CCPDate;
 			sourceTree = "<group>";
@@ -88,6 +81,21 @@
 				7E6F0CBF2314FD0500D81340 /* CCPDateComponents.swift */,
 			);
 			path = CCPDateExtensions;
+			sourceTree = "<group>";
+		};
+		7EA70632231CFE8B007BD463 /* demo */ = {
+			isa = PBXGroup;
+			children = (
+				7E6F0CA22314F5A700D81340 /* AppDelegate.swift */,
+				7E6F0CA42314F5A700D81340 /* DateDescriptionVC.swift */,
+				7E6F0CD0231533DA00D81340 /* DateComponentsVC.swift */,
+				7E6F0CD2231657C900D81340 /* DateCompareVC.swift */,
+				7E6F0CA62314F5A700D81340 /* Main.storyboard */,
+				7E6F0CA92314F5A800D81340 /* Assets.xcassets */,
+				7E6F0CAB2314F5A800D81340 /* LaunchScreen.storyboard */,
+				7E6F0CAE2314F5A800D81340 /* Info.plist */,
+			);
+			path = demo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
