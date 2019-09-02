@@ -8,13 +8,12 @@
 
 import Foundation
 
-
 extension Set where Element == Calendar.Component {
     static let ccpComponents: Set = [.year, .month, .day, .hour, .minute, .second, .nanosecond, .timeZone, .weekday, .weekdayOrdinal, .weekOfMonth, .weekOfYear]
 }
 
 
-extension Date {
+public extension Date {
     var cpts: DateComponents {
         return Calendar.current.dateComponents(.ccpComponents, from: self)
     }

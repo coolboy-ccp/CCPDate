@@ -103,6 +103,14 @@ public func -(left: Date, right: Date) -> DateComponents {
     return Calendar.current.dateComponents(.calculationComponents, from: right, to: left)
 }
 
+extension Date {
+    func isInWeek(_ other: Date) -> Bool {
+        let cpts = self.cpts
+        let cpts1 = other.cpts
+        return cpts.year == cpts1.year && cpts.month == cpts1.month && cpts1.weekOfMonth == cpts.weekOfMonth && cpts1.weekDay == cpts.weekDay
+    }
+}
+
 
 /// 表示两个date的差值
 ///

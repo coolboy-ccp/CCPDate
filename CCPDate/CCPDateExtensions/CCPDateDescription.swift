@@ -30,7 +30,7 @@ extension DescType {
     var week: [String] {
         switch self {
         case .china:
-            return ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+            return ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
         case .en:
             return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         case .enFull:
@@ -174,14 +174,7 @@ public extension CCPDateFormatter {
     
     func weekDesc(_ type: DescType = .china) -> String {
         assert(weekDay > 0, "无效的星期")
-        var week = 0
-        if weekDay == 0 {
-            week = 6
-        }
-        else {
-            week = weekDay - 2
-        }
-        return type.week[week]
+        return type.week[week - 1]
     }
     
     private func chinese(_ formatter: CCPDateFormatter = .YMDHMS) -> String {
